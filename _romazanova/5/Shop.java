@@ -56,7 +56,7 @@ public class Shop {
         int sum = 0;
         for (int i = 0; i < shop.length; i++) {
             final AbstractItem arstarcItem = getItem(i);
-            if (arstarcItem != null & arstarcItem instanceof Computers) {
+            if (arstarcItem instanceof Computers) {
                 sum += (((Computers) arstarcItem).getHardDriveSpace());
             } else {
                 continue;
@@ -110,21 +110,27 @@ public class Shop {
         for (int i = 0; i < shop.length; i++) {
             final AbstractItem abstractItem = getItem(i);
 
-            if (abstractItem != null & abstractItem.getRequiredDocument() != null
-                    & abstractItem.getDaysForReturn() != 0) {
-                System.out.println(abstractItem.getTypeOfGood() + " " + abstractItem.getName()
-                        + " can be returned during " + abstractItem.getDaysForReturn()
-                        + " days. The following documents should be provided: " + abstractItem.getRequiredDocument());
-            } else if (abstractItem != null & abstractItem.getRequiredDocument() != null
-                    & abstractItem.getDaysForReturn() == 0) {
-                System.out.println(abstractItem.getTypeOfGood() + " " + abstractItem.getName()
-                        + " can be returned without restrictions on the number of days."
-                        + " The following documents should be provided: " + abstractItem.getRequiredDocument());
-            } else {
-                break;
+            if (abstractItem instanceof Returnable) {
+                if ((((Returnable) abstractItem).getRequiredDocument()) != null
+                        && (((Returnable) abstractItem).getDaysForReturn()) != 0) {
+                    System.out.println(abstractItem.getTypeOfGood() + " " + abstractItem.getName()
+                            + " can be returned during " + ((Returnable) abstractItem).getDaysForReturn()
+                            + " days. The following documents should be provided: "
+                            + ((Returnable) abstractItem).getRequiredDocument());
+                }
+
+                else if ((((Returnable) abstractItem).getRequiredDocument()) != null
+                        && (((Returnable) abstractItem).getDaysForReturn()) == 0) {
+                    System.out.println(abstractItem.getTypeOfGood() + " " + abstractItem.getName()
+                            + " can be returned without restrictions on the number of days."
+                            + " The following documents should be provided: "
+                            + ((Returnable) abstractItem).getRequiredDocument());
+                } else {
+                    continue;
+                }
+
             }
 
         }
-
     }
 }

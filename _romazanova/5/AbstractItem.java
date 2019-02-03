@@ -1,6 +1,6 @@
 package ru.mera.romazanova.task5;
 
-public abstract class AbstractItem implements Item, Returnable {
+public abstract class AbstractItem implements Item {
     private final int count;
     private final String name;
     private final int quantity;
